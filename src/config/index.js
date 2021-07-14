@@ -3,9 +3,18 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-// ==> Conexão com a Base de Dados:
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+const cn = {
+  user: process.env.PGUSER,
+  host: process.env.PGHOST,
+  database: "reactpet",
+  password: process.env.PGPASS,
+  port: process.env.PGPORT,
+};
+
+const pool = new Pool(cn);
+
+pool.on("error", function (err, client) {
+  console.error("idle client error", err.message, err.stack);
 });
 
 pool.on("connect", () => {

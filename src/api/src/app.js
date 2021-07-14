@@ -1,11 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 
 const app = express();
 
-const index = require("./routes/index");
-const userRoute = require("./routes/user");
+const index = require("./routes/index.js");
+const userRoute = require("./routes/user.js");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

@@ -1,24 +1,22 @@
-const db = require("../../../config/index");
+const db = require("../../../config/index.js");
 
 exports.createUser = async (req, res) => {
-  const { person_name, username, email, password, bio } = req.body;
+  const { username, person_name, email, address, password, bio } = req.body;
   const response = await db.query(
-    "INSERT INTO users (person_name, username, email, password, bio) VALUES ($1, $2, $3, $4, $5)",
-    [person_name, username, email, password, bio]
+    "INSERT INTO users (username, person_name, email, address, password, bio) VALUES ($1, $2, $3, $4, $5, $6)",
+    [username, person_name, email, address, password, bio]
   );
 
   res.status(201).send({
     message: "User registered successfully!",
     body: {
-      user: { person_name, username, email, password, bio },
+      user: { username, person_name, password, email, address, password, bio },
     },
   });
 };
 
 exports.listAllUsers = async (req, res) => {
-  const response = await db.query(
-    "SELECT * FROM users ORDER BY person_name ASC"
-  );
+  const response = await db.query("SELECT * FROM users");
   res.status(200).send(response.rows);
 };
 
