@@ -46,3 +46,13 @@ exports.deleteUserById = async (req, res) => {
 
   res.status(200).send({ message: "User deleted successfully!", userId });
 };
+
+exports.getUserPetsById = async (req, res) => {
+  const userId = parseInt(req.params.id);
+  const response = await db.query(
+    "SELECT * from pets WHERE pets.pet_ownerid = $1",
+    [userId]
+  );
+
+  res.status(200).send(response.rows);
+};
