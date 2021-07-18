@@ -6,12 +6,15 @@ import About from "./components/views/About";
 import Users from "./components/views/Users";
 import Pets from "./components/views/Pets";
 import Search from "./components/views/Search";
+import Login from "./components/views/Login";
+import Signup from "./components/views/Signup";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Fragment } from "react";
 
 function App() {
   return (
-    <div className="App flex flex-col bg-yellow-50">
+    <Fragment>
       <Router>
         <Navbar />
         <Switch>
@@ -27,15 +30,19 @@ function App() {
           <Route path="/users">
             <Users />
           </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
           <Route path="/">
-            <div className="flex-grow">
-              <Home />
-            </div>
+            <Home />
           </Route>
         </Switch>
         <Footer />
       </Router>
-    </div>
+    </Fragment>
   );
 }
 
