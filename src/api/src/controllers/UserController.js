@@ -1,16 +1,61 @@
 const db = require("../../../config/index.js");
+const { validationResult } = require("express-validator");
 
 exports.createUser = async (req, res) => {
-  const { username, person_name, email, address, password, bio } = req.body;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      success: false,
+      errors: errors.array(),
+    });
+  }
+
+  const {
+    username,
+    person_name,
+    email,
+    address,
+    password,
+    bio,
+    cellphone,
+    cep,
+    website,
+    city,
+  } = req.body;
+
   const response = await db.query(
-    "INSERT INTO users (username, person_name, email, address, password, bio) VALUES ($1, $2, $3, $4, $5, $6)",
-    [username, person_name, email, address, password, bio]
+    "INSERT INTO users (username, person_name, email, address, password, bio, phone, cep, website, city) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+    [
+      username,
+      person_name,
+      email,
+      address,
+      password,
+      bio,
+      cellphone,
+      cep,
+      website,
+      city,
+    ]
   );
 
-  res.status(201).send({
+  res.status(200).json({
+    success: true,
     message: "User registered successfully!",
     body: {
-      user: { username, person_name, password, email, address, password, bio },
+      user: {
+        username,
+        person_name,
+        email,
+        address,
+        password,
+        bio,
+        cellphone,
+        cep,
+        website,
+        city,
+      },
     },
   });
 };
