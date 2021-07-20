@@ -19,8 +19,9 @@ const Signup = () => {
     });
 
   const [data, setData] = useState({});
-  const [isValid, setIsValid] = useState(null);
   const [errors, setErrors] = useState([]);
+
+  const [fieldErrors, setFieldErrors] = useState([]);
 
   useEffect(() => {
     toast.dismiss();
@@ -30,10 +31,6 @@ const Signup = () => {
     }
   }, [errors]);
 
-  /* useEffect(() => {
-
-  }, [data]); */
-
   //TODO: DO NOT CREATE TOASTS FOR EVERY CLICK FIX
 
   function handleChange(event) {
@@ -42,6 +39,8 @@ const Signup = () => {
   }
 
   const handleSubmit = async (e) => {
+    setFieldErrors([]);
+
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -51,13 +50,14 @@ const Signup = () => {
       console.log(response.data);
     } catch (err) {
       if (err.response) {
-        console.log(err.response.data);
-        setIsValid(!err?.response.data.success);
-
         const normalizedError = err.response.data.errors.map((error) => ({
           message: error.msg,
           param: error.param,
         }));
+
+        for (const error of err.response.data.errors) {
+          setFieldErrors((fieldErrors) => [...fieldErrors, error.param]);
+        }
 
         setErrors(normalizedError);
       } else if (err.request) {
@@ -78,10 +78,11 @@ const Signup = () => {
               <label className="block">
                 <span className="text-gray-700">Full name</span>
                 <Input
-                  name="name"
+                  name="person_name"
                   type="text"
                   placeholder="Your name"
                   onChange={(e) => handleChange(e)}
+                  isValid={fieldErrors.includes("person_name")}
                 />
               </label>
               <label className="block">
@@ -91,6 +92,7 @@ const Signup = () => {
                   placeholder="Your username"
                   type="text"
                   onChange={(e) => handleChange(e)}
+                  isValid={fieldErrors.includes("username")}
                 />
               </label>
               <label className="block">
@@ -100,6 +102,7 @@ const Signup = () => {
                   type="email"
                   placeholder="john@example.com"
                   onChange={(e) => handleChange(e)}
+                  isValid={fieldErrors.includes("email")}
                 />
               </label>
               <label className="block">
@@ -117,6 +120,7 @@ const Signup = () => {
                   name="email"
                   type="password"
                   onChange={(e) => handleChange(e)}
+                  isValid={fieldErrors.includes("password")}
                 />
               </label>
               <label className="block">
@@ -126,6 +130,7 @@ const Signup = () => {
                   type="text"
                   placeholder="(XX) XXXXX-XXXX"
                   onChange={(e) => handleChange(e)}
+                  isValid={fieldErrors.includes("cellphone")}
                 />
               </label>
               <label className="block">
@@ -134,6 +139,7 @@ const Signup = () => {
                   name="biography"
                   rows="3"
                   onChange={(e) => handleChange(e)}
+                  isValid={fieldErrors.includes("biography")}
                 />
               </label>
               <label className="block">
@@ -143,6 +149,7 @@ const Signup = () => {
                   type="text"
                   placeholder="XXXXX-XXX"
                   onChange={(e) => handleChange(e)}
+                  isValid={fieldErrors.includes("cep")}
                 />
               </label>
               <label className="block">
@@ -152,6 +159,7 @@ const Signup = () => {
                   type="text"
                   placeholder="City"
                   onChange={(e) => handleChange(e)}
+                  isValid={fieldErrors.includes("city")}
                 />
               </label>
               <label className="block">
@@ -161,6 +169,7 @@ const Signup = () => {
                   type="text"
                   placeholder="My Street, 999"
                   onChange={(e) => handleChange(e)}
+                  isValid={fieldErrors.includes("address")}
                 />
               </label>
               <label className="block">
@@ -170,6 +179,7 @@ const Signup = () => {
                   type="text"
                   placeholder="mywebsite.com"
                   onChange={(e) => handleChange(e)}
+                  isValid={fieldErrors.includes("website")}
                 />
               </label>
               <Button type="submit">Create Account</Button>
