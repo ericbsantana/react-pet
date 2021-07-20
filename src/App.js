@@ -8,6 +8,8 @@ import Pets from "./components/views/Pets";
 import Search from "./components/views/Search";
 import Login from "./components/views/Login";
 import Signup from "./components/views/Signup";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Fragment } from "react";
@@ -42,6 +44,7 @@ function App() {
         </Switch>
         <Footer />
       </Router>
+      <ToastContainer />
     </Fragment>
   );
 }
