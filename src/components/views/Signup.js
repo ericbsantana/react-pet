@@ -5,6 +5,7 @@ import Button from "../layout/Form/Button";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Redirect } from "react-router-dom";
 
 const Signup = () => {
   const ToastError = (msg) =>
@@ -20,8 +21,9 @@ const Signup = () => {
 
   const [data, setData] = useState({});
   const [errors, setErrors] = useState([]);
-
   const [fieldErrors, setFieldErrors] = useState([]);
+
+  const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
     toast.dismiss();
@@ -47,7 +49,8 @@ const Signup = () => {
         "http://localhost:3001/api/users",
         data
       );
-      console.log(response.data);
+
+      setIsRegistered(true);
     } catch (err) {
       if (err.response) {
         const normalizedError = err.response.data.errors.map((error) => ({
@@ -70,6 +73,7 @@ const Signup = () => {
 
   return (
     <div className="grid grid-cols-12	max-w-7xl mx-auto content-center p-2">
+      {isRegistered && <Redirect to="/login" />}
       <div className="col-start-4 col-span-6 p-5">
         <div className="border rounded-lg border-gray-300 bg-gray-100 shadow-2xl p-5">
           <h2 className="text-2xl font-bold text-center">Register</h2>
