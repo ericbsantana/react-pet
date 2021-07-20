@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Input = (props) => {
-  const [isValid, setIsValid] = useState(true);
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    setIsValid(props.isValid);
+  }, [props.isValid]);
 
   return (
     <input
@@ -9,7 +13,7 @@ const Input = (props) => {
       type={props.type}
       className={`mt-0 block w-full border rounded-md border-gray-200  
       ${
-        !isValid
+        isValid
           ? "focus:ring-transparent focus:border-red-700 ring-red-200 border-red-300 placeholder-red-400 text-red-400"
           : "focus:ring-0 focus:border-yellow-500"
       }`}
