@@ -4,7 +4,7 @@ import { useContext } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import { faBell as frBell } from "@fortawesome/free-regular-svg-icons";
+/* import  { faBell as frBell } from "@fortawesome/free-regular-svg-icons"; */
 
 const ProfileNavbar = () => {
   const { isLoggedIn, Logout, user } = useContext(AuthContext);
