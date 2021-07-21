@@ -1,4 +1,4 @@
-const db = require("../../../config/index.js");
+const db = require("../../config/index.js");
 const { validationResult } = require("express-validator");
 
 exports.createUser = async (req, res) => {
@@ -39,6 +39,7 @@ exports.createUser = async (req, res) => {
       city,
     ]
   );
+  console.log(response.log);
 
   res.status(200).json({
     success: true,
@@ -81,6 +82,8 @@ exports.updateUserById = async (req, res) => {
     "UPDATE users SET person_name = $1, username = $2, email = $3, password = $4, bio = $5 WHERE id = $4",
     [person_name, username, email, password, bio, userId]
   );
+
+  console.log(response);
 
   res.status(200).send({ message: "User Updated Successfully!" });
 };
