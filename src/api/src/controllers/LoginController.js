@@ -23,10 +23,10 @@ exports.authUser = async (req, res) => {
       res.status(200).json({ auth: true, token: token, username: username });
     } else {
       res
-        .status(403)
+        .status(400)
         .json({ auth: false, message: "Login ou senha inválidos!" });
     }
   } catch (err) {
-    res.status(400).json({ message: "Seu pedido não pôde ser realizado" });
+    res.status(400).json({ auth: false, message: "Login ou senha inválidos!" });
   }
 };
