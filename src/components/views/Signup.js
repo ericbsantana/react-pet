@@ -2,10 +2,11 @@ import Input from "../layout/Form/Input";
 import Textarea from "../layout/Form/Textarea";
 import Button from "../layout/Form/Button";
 
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect, useContext } from "react";
+import api from "../../helpers/axios";
 import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
+import AuthContext from "../../context/auth";
 
 const Signup = () => {
   const ToastError = (msg) =>
@@ -18,6 +19,8 @@ const Signup = () => {
       draggable: true,
       progress: undefined,
     });
+
+  const isLoggedIn = useContext(AuthContext);
 
   const [data, setData] = useState({});
   const [errors, setErrors] = useState([]);
@@ -45,10 +48,7 @@ const Signup = () => {
 
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/users",
-        data
-      );
+      const response = await api.post("http://localhost:3001/users", data);
 
       setIsRegistered(true);
     } catch (err) {
@@ -74,6 +74,7 @@ const Signup = () => {
   return (
     <div className="grid grid-cols-12	max-w-7xl mx-auto content-center p-2">
       {isRegistered && <Redirect to="/login" />}
+      {isLoggedIn && <Redirect to="/" />}
       <div className="col-start-4 col-span-6 p-5">
         <div className="border rounded-lg border-gray-300 bg-gray-100 shadow-2xl p-5">
           <h2 className="text-2xl font-bold text-center">Register</h2>
