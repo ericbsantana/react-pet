@@ -1,20 +1,20 @@
 import { createContext, useState, useEffect } from "react";
 import api from "../helpers/axios";
 
-const AuthContext = createContext({});
+export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const storageUser = localStorage.getItem("user");
     const storageToken = localStorage.getItem("token");
 
     if (storageUser && storageToken) {
+      setIsLoggedIn(true);
       setUser(JSON.parse(storageUser));
       api.defaults.headers.common["Authorization"] = `Bearer ${storageToken}`;
-      setIsLoggedIn(true);
     }
   }, []);
 
@@ -52,5 +52,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export default AuthContext;

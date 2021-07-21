@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 
 import { Link } from "react-router-dom";
+import ProfileNavbar from "./ProfileNavbar";
 
 const Navbar = (props) => {
   function GetLocation(compareLocation) {
     const location = useLocation();
     return location.pathname === compareLocation;
   }
+
   return (
     <div className="grid grid-cols-12 content-center	max-w-7xl mx-auto p-2 bg-yellow-500 text-gray-800 ">
       <div className="col-span-2 flex justify-center items-center">
@@ -49,20 +51,7 @@ const Navbar = (props) => {
           </Link>
         </div>
       </div>
-      <div className="col-span-5 flex justify-end items-center">
-        <Link
-          to="/login"
-          className="items-center justify-center bg-yellow-300 py-4 px-8 text-black font-bold uppercase text-xs rounded hover:bg-yellow-400 hover:text-gray-800 mr-2"
-        >
-          Log in
-        </Link>
-        <Link
-          to="/signup"
-          className="items-center justify-center bg-yellow-100 py-4 px-8 text-black font-bold uppercase text-xs rounded hover:bg-yellow-400 hover:text-gray-800"
-        >
-          Sign up
-        </Link>
-      </div>
+      <ProfileNavbar />
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { useState, useEffect, useContext } from "react";
 import api from "../../helpers/axios";
 import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
-import AuthContext from "../../context/auth";
+import { AuthContext } from "../../context/auth";
 
 const Signup = () => {
   const ToastError = (msg) =>
