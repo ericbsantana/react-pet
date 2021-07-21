@@ -4,23 +4,13 @@ import Button from "../layout/Form/Button";
 
 import { useState, useEffect, useContext } from "react";
 import api from "../../helpers/axios";
-import { toast } from "react-toastify";
+import { ToastError, ToastClear } from "../../helpers/notify";
+
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 
 const Signup = () => {
-  const ToastError = (msg) =>
-    toast.error(msg, {
-      position: "top-right",
-      autoClose: false,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-
-  const isLoggedIn = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
 
   const [data, setData] = useState({});
   const [errors, setErrors] = useState([]);
@@ -29,7 +19,7 @@ const Signup = () => {
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
-    toast.dismiss();
+    ToastClear();
 
     for (const error of errors) {
       ToastError(error.message);
