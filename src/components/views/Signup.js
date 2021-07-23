@@ -7,11 +7,8 @@ import api from "../../helpers/axios";
 import { ToastError, ToastClear } from "../../helpers/notify";
 
 import { Redirect } from "react-router-dom";
-import { AuthContext } from "../../context/auth";
 
 const Signup = () => {
-  const { isLoggedIn } = useContext(AuthContext);
-
   const [data, setData] = useState({});
   const [errors, setErrors] = useState([]);
   const [fieldErrors, setFieldErrors] = useState([]);
@@ -64,7 +61,6 @@ const Signup = () => {
   return (
     <div className="grid grid-cols-12	max-w-7xl mx-auto content-center p-2">
       {isRegistered && <Redirect to="/login" />}
-      {isLoggedIn && <Redirect to="/" />}
       <div className="col-start-4 col-span-6 p-5">
         <div className="border rounded-lg border-gray-300 bg-gray-100 shadow-2xl p-5">
           <h2 className="text-2xl font-bold text-center">Register</h2>

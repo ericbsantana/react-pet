@@ -20,10 +20,17 @@ exports.authUser = async (req, res) => {
       const token = jwt.sign({ id }, key, {
         expiresIn: 300,
       });
-      res.status(200).json({ auth: true, token: token, username: username });
+      res
+        .status(200)
+        .json({
+          auth: true,
+          message: "Login válido!",
+          token: token,
+          username: username,
+        });
     } else {
       res
-        .status(400)
+        .status(200)
         .json({ auth: false, message: "Login ou senha inválidos!" });
     }
   } catch (err) {

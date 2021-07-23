@@ -6,11 +6,11 @@ import About from "./components/views/About";
 import Users from "./components/views/Users";
 import Pets from "./components/views/Pets";
 import Search from "./components/views/Search";
-import Login from "./components/views/Login";
+import Login from "./components/views/LoginView";
 import Signup from "./components/views/Signup";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import { AuthProvider } from "./context/auth";
+import { AuthProvider } from "./store";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Fragment } from "react";
@@ -18,8 +18,8 @@ import { Fragment } from "react";
 function App() {
   return (
     <Fragment>
-      <Router>
-        <AuthProvider>
+      <AuthProvider>
+        <Router>
           <Navbar />
           <Switch>
             <Route path="/about">
@@ -45,8 +45,8 @@ function App() {
             </Route>
           </Switch>
           <Footer />
-        </AuthProvider>
-      </Router>
+        </Router>
+      </AuthProvider>
       <ToastContainer />
     </Fragment>
   );

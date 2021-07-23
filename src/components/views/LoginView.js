@@ -1,19 +1,32 @@
-import { AuthContext } from "../../context/auth";
+import { Login, AuthContext } from "../../store";
+import { ToastError, ToastClear } from "../../helpers/notify"; //TODO: VALIDATE FORM
+
 import { useState, useEffect, useContext } from "react";
 
 import Input from "../layout/Form/Input";
 import Button from "../layout/Form/Button";
-import { ToastError, ToastClear } from "../../helpers/notify"; //TODO: VALIDATE FORM
 
-const Login = () => {
+const LoginView = () => {
   const [data, setData] = useState({});
 
-  const { Login } = useContext(AuthContext);
+  const { state, dispatch } = useContext(AuthContext);
 
-  function handleLogin(e) {
+  useEffect(() => {
+    ToastClear();
+    ToastError(state.errorMessage);
+  }, [state.errorMessage]);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    Login(data.email, data.password);
-  }
+
+    const { email, password } = data;
+
+    try {
+      await Login(dispatch, { email, password });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   function handleChange(event) {
     const { value, name } = event.target;
@@ -45,7 +58,12 @@ const Login = () => {
                     onChange={(e) => handleChange(e)}
                   />
                 </label>
-                <Button type="submit">Login</Button>
+                {state.errorMessage ? (
+                  <p className="text-red-500">{state.errorMessage}</p>
+                ) : null}
+                <Button type="submit" disabled={state.loading}>
+                  Login
+                </Button>
               </div>
             </form>
           </div>
@@ -55,4 +73,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginView;
