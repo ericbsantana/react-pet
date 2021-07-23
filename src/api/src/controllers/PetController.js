@@ -1,4 +1,4 @@
-const db = require("../../../config/index.js");
+const db = require("../../config/index.js");
 
 exports.createPet = async (req, res) => {
   const { pet_ownerid, bio, size, pet_sex, pet_name } = req.body;
