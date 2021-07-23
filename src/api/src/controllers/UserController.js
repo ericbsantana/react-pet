@@ -1,16 +1,62 @@
-const db = require("../../../config/index.js");
+const db = require("../../config/index.js");
+const { validationResult } = require("express-validator");
 
 exports.createUser = async (req, res) => {
-  const { username, person_name, email, address, password, bio } = req.body;
-  const response = await db.query(
-    "INSERT INTO users (username, person_name, email, address, password, bio) VALUES ($1, $2, $3, $4, $5, $6)",
-    [username, person_name, email, address, password, bio]
-  );
+  const errors = validationResult(req);
 
-  res.status(201).send({
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      success: false,
+      errors: errors.array(),
+    });
+  }
+
+  const {
+    username,
+    person_name,
+    email,
+    address,
+    password,
+    bio,
+    cellphone,
+    cep,
+    website,
+    city,
+  } = req.body;
+
+  const response = await db.query(
+    "INSERT INTO users (username, person_name, email, address, password, bio, phone, cep, website, city) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+    [
+      username,
+      person_name,
+      email,
+      address,
+      password,
+      bio,
+      cellphone,
+      cep,
+      website,
+      city,
+    ]
+  );
+  console.log(response.log);
+
+  res.status(200).json({
+    success: true,
     message: "User registered successfully!",
     body: {
-      user: { username, person_name, password, email, address, password, bio },
+      user: {
+        username,
+        person_name,
+        email,
+        address,
+        password,
+        bio,
+        cellphone,
+        cep,
+        website,
+        city,
+      },
     },
   });
 };
@@ -36,6 +82,8 @@ exports.updateUserById = async (req, res) => {
     "UPDATE users SET person_name = $1, username = $2, email = $3, password = $4, bio = $5 WHERE id = $4",
     [person_name, username, email, password, bio, userId]
   );
+
+  console.log(response);
 
   res.status(200).send({ message: "User Updated Successfully!" });
 };
