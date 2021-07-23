@@ -2,23 +2,13 @@ import Input from "../layout/Form/Input";
 import Textarea from "../layout/Form/Textarea";
 import Button from "../layout/Form/Button";
 
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { useState, useEffect, useContext } from "react";
+import api from "../../helpers/axios";
+import { ToastError, ToastClear } from "../../helpers/notify";
+
 import { Redirect } from "react-router-dom";
 
 const Signup = () => {
-  const ToastError = (msg) =>
-    toast.error(msg, {
-      position: "top-right",
-      autoClose: false,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-
   const [data, setData] = useState({});
   const [errors, setErrors] = useState([]);
   const [fieldErrors, setFieldErrors] = useState([]);
@@ -26,7 +16,7 @@ const Signup = () => {
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
-    toast.dismiss();
+    ToastClear();
 
     for (const error of errors) {
       ToastError(error.message);
@@ -45,10 +35,7 @@ const Signup = () => {
 
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/users",
-        data
-      );
+      const response = await api.post("http://localhost:3001/users", data);
 
       setIsRegistered(true);
     } catch (err) {
