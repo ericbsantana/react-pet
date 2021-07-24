@@ -9,38 +9,51 @@ import {
 import { faHeart as frHeart } from "@fortawesome/free-regular-svg-icons";
 
 import React, { useState, useEffect } from "react";
+import api from "../../../helpers/axios";
 
-const Card = (props) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+const PetCards = (props) => {
+  const [isFavorite, setIsFavorite] = useState(props.isFavorite);
+  const [ownerData, setOwnerData] = useState({});
+
+  const getOwnerId = async () => {
+    try {
+      let response = await api.get(`/users/${props.ownerid}`);
+      setOwnerData(response.data[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    setIsFavorite(props.isFavorite);
+    getOwnerId(); //TODO: THIS MAY LEAD TO PERFORMANCE ISSUES. DO A SINGLE REQUEST TO TAKE ALL OWNER IDS
   }, []);
 
   function toggleFav() {
-    setIsFavorite(!isFavorite);
+    setIsFavorite(!isFavorite); //TODO: CREATE, DELETE FAVORITES FROM DB AND *UPDATE*
   }
 
   return (
     <div className="my-1 px-1 lg:w-1/5 flex flex-col">
       <article className="overflow-hidden h-full rounded-lg shadow-lg bg-white h-100">
-        <img
-          alt="Placeholder"
-          className="w-full object-cover h-3/5"
-          src={props.img}
-        />
+        <Link to={`/pets/${props.id}`}>
+          <img
+            alt="Placeholder"
+            className="w-full object-cover h-3/5"
+            src={props.img}
+          />
+        </Link>
 
         <header className="flex items-center justify-between leading-tight p-2 md:p-4 md:pb-0">
           <div className="flex  items-center space-around">
             <h1 className="text-lg no-underline text-black">{props.petname}</h1>
             <span className="p-2">
-              {props.sex === "male" ? (
+              {props.sex === "m" ? (
                 <FontAwesomeIcon
                   icon={faMars}
                   size="lg"
                   className="text-blue-500"
                 />
-              ) : props.sex === "female" ? (
+              ) : props.sex === "f" ? (
                 <FontAwesomeIcon
                   icon={faVenus}
                   size="lg"
@@ -83,7 +96,7 @@ const Card = (props) => {
               className="block rounded-full"
               src="https://picsum.photos/32/32/?random"
             />
-            <p className="ml-2 text-sm">{props.userName}</p>
+            <p className="ml-2 text-sm">{ownerData.person_name}</p>
           </Link>
         </footer>
       </article>
@@ -91,4 +104,4 @@ const Card = (props) => {
   );
 };
 
-export default Card;
+export default PetCards;

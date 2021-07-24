@@ -6,7 +6,7 @@ import React, { useContext } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-/* import  { faBell as frBell } from "@fortawesome/free-regular-svg-icons"; */
+/* import  { faBell as frBell } from "@fortawesome/free-regular-svg-icons"; */ //TODO: NOTIFICATIONS
 
 const ProfileNavbar = () => {
   const { state, dispatch } = useContext(AuthContext);
