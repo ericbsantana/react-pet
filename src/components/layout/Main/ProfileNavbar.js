@@ -5,7 +5,11 @@ import { Logout, AuthContext } from "../../../store";
 import React, { useContext } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBell,
+  faSignOutAlt,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 /* import  { faBell as frBell } from "@fortawesome/free-regular-svg-icons"; */ //TODO: NOTIFICATIONS
 
 const ProfileNavbar = () => {
@@ -21,6 +25,11 @@ const ProfileNavbar = () => {
               className="rounded-full border border-gray-100 shadow-sm"
               src="https://via.placeholder.com/150"
             />
+          </div>
+          <div className="py-2 px-3">
+            <Link to="/add">
+              <FontAwesomeIcon icon={faPlus} />
+            </Link>
           </div>
           <div className="py-2 px-3">
             <FontAwesomeIcon icon={faBell} />

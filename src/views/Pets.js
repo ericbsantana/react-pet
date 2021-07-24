@@ -38,7 +38,7 @@ const Pets = () => {
               petname={pet.pet_name}
               sex={pet.pet_sex}
               shortdescription={pet.bio}
-              img="https://purr.objects-us-east-1.dream.io/i/6138491962_2a6d192919_z1.jpg"
+              img="https://cataas.com/cat"
             />
           ))}
         </div>

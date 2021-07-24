@@ -28,7 +28,15 @@ exports.listAllPets = async (req, res) => {
 
 exports.findPetById = async (req, res) => {
   const petId = parseInt(req.params.id);
-  const response = await db.query("SELECT * FROM pets WHERE id = $1", [petId]);
+  const response = await db.query("SELECT * FROM pets WHERE pet_id = $1", [
+    petId,
+  ]);
+
+  if (response.rows.length === 0) {
+    res.status(404).send("Error: this pet does not exist!");
+    return;
+  }
+
   res.status(200).send(response.rows);
 };
 
