@@ -22,7 +22,7 @@ const PetDetails = () => {
   }, []);
 
   return (
-    <p>
+    <div>
       {error && <Redirect to="/notfound" />}
       {petData.map((pet) => (
         <ul key={pet.pet_id}>
@@ -33,7 +33,7 @@ const PetDetails = () => {
           <li>{pet.bio}</li>
         </ul>
       ))}
-    </p>
+    </div>
   );
 };
 
