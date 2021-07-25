@@ -13,11 +13,11 @@ const AddPetForm = () => {
   const { state } = useContext(AuthContext);
 
   const [data, setData] = useState({ pet_ownerid: state.user_id });
-  const [image, setImage] = useState();
+  const [image, setImage] = useState("https://via.placeholder.com/150");
   const [tags, setTags] = useState([]);
-  const [tagInput, setTagInput] = useState("");
   const [errors, setErrors] = useState([]);
   const [fieldErrors, setFieldErrors] = useState([]);
+  const [tagInput, setTagInput] = useState("");
 
   useEffect(() => {
     ToastClear();
@@ -33,10 +33,11 @@ const AddPetForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    setFieldErrors([]);
-
     e.preventDefault();
-    setData((prevState) => ({ ...prevState, tags: tags }));
+    setFieldErrors([]);
+    setData((prevState) => {
+      return { ...prevState, pet_char: tags };
+    });
 
     try {
       const response = await api.post("http://localhost:3001/pets", data);
@@ -61,16 +62,12 @@ const AddPetForm = () => {
     }
   };
 
-  const handleFile = (e) => {
-    setImage(URL.createObjectURL(e.target.files[0]));
-  };
-
   const handleTagInput = (e) => {
     const { value } = e.target;
     setTagInput(value);
   };
 
-  const handleTag = (e) => {
+  const handleTag = async (e) => {
     const { key } = e;
     const trimmedInput = tagInput.trim();
 
@@ -83,6 +80,10 @@ const AddPetForm = () => {
 
   const deleteTag = (tagName) => {
     setTags(tags.filter((tag) => !tag.includes(tagName)));
+  };
+
+  const handleFile = (e) => {
+    setImage(URL.createObjectURL(e.target.files[0]));
   };
 
   return (
@@ -113,13 +114,12 @@ const AddPetForm = () => {
                   Pet Gender
                 </label>
                 <Select
-                  className="mt-0 block border rounded-md border-gray-200 "
                   name="pet_sex"
                   onChange={(e) => handleChange(e)}
                   defaultValue={"default"}
                   isValid={fieldErrors.includes("pet_sex")}
                 >
-                  <option disabled defaultValue={"default"}>
+                  <option defaultValue={"default"}>
                     -- Choose a gender --
                   </option>
                   <option value="m">Male</option>
@@ -132,15 +132,12 @@ const AddPetForm = () => {
                   Size
                 </label>
                 <Select
-                  className="mt-0 block border rounded-md border-gray-200 "
                   name="size"
                   onChange={(e) => handleChange(e)}
                   defaultValue={"default"}
                   isValid={fieldErrors.includes("size")}
                 >
-                  <option disabled defaultValue={"default"}>
-                    -- Choose a size --
-                  </option>
+                  <option defaultValue={"default"}>-- Choose a size --</option>
                   <option value="small">Small</option>
                   <option value="medium">Medium</option>
                   <option value="large">Large</option>
@@ -195,13 +192,15 @@ const AddPetForm = () => {
               Write some of your pet's characteristics!
             </label>
             <Input
-              name="pet_characteristics"
+              name="pet_char"
               type="text"
               placeholder="cute, awesome..."
               value={tagInput}
-              onChange={(e) => handleTagInput(e)}
+              onChange={(e) => {
+                handleTagInput(e);
+              }}
               onKeyDown={(e) => handleTag(e)}
-              isValid={fieldErrors.includes("tags")}
+              isValid={fieldErrors.includes("pet_char")}
             />
           </div>
           <div className="flex space-x-2 p-2 mt-2 content-center">
