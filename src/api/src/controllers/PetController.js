@@ -1,6 +1,16 @@
 const db = require("../../config/index.js");
+const { validationResult } = require("express-validator");
 
 exports.createPet = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      success: false,
+      errors: errors.array(),
+    });
+  }
+
   const { pet_ownerid, bio, size, pet_sex, pet_name, tags } = req.body;
 
   const q = await db.query(
