@@ -9,6 +9,7 @@ export async function Login(dispatch, payload) {
       dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
       localStorage.setItem("user", JSON.stringify(response.data.username));
       localStorage.setItem("token", JSON.stringify(response.data.token));
+      localStorage.setItem("user_id", JSON.stringify(response.data.user_id));
 
       api.defaults.headers.common[
         "Authorization"
@@ -28,4 +29,5 @@ export async function Logout(dispatch) {
   dispatch({ type: "LOGOUT" });
   localStorage.removeItem("user");
   localStorage.removeItem("token");
+  localStorage.removeItem("id");
 }

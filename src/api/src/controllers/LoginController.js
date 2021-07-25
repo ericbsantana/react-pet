@@ -13,21 +13,19 @@ exports.authUser = async (req, res) => {
     );
 
     if (response.rows.length) {
-      const { username } = response.rows[0];
+      const { username, user_id } = response.rows[0];
 
       const key = process.env.SECRET_KEY;
-      const id = 1; //esse id viria do banco de dados
-      const token = jwt.sign({ id }, key, {
+      const token = jwt.sign({ user_id }, key, {
         expiresIn: 300,
       });
-      res
-        .status(200)
-        .json({
-          auth: true,
-          message: "Login válido!",
-          token: token,
-          username: username,
-        });
+      res.status(200).json({
+        auth: true,
+        message: "Login válido!",
+        token: token,
+        username: username,
+        user_id: user_id,
+      });
     } else {
       res
         .status(200)
