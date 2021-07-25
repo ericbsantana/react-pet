@@ -1,5 +1,5 @@
 import { AuthContext } from "../../../store";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 
 import Input from "./Input";
 import Textarea from "./Textarea";
@@ -9,20 +9,22 @@ import Tag from "./Tag";
 import api from "../../../helpers/axios";
 
 const AddPetForm = () => {
-  const [data, setData] = useState({});
+  const { state } = useContext(AuthContext);
+
+  const [data, setData] = useState({ pet_ownerid: state.user_id });
   const [image, setImage] = useState();
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
-
   const [errors, setErrors] = useState([]);
 
   const handleChange = async (e) => {
     const { value, name } = e.target;
-    setData((prevState) => ({ ...data, [name]: value }));
+    setData((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setData((prevState) => ({ ...prevState, tags }));
 
     try {
       const response = await api.post("http://localhost:3001/pets", data);
@@ -67,10 +69,7 @@ const AddPetForm = () => {
           <h2 className="text-2xl font-bold">Register Pet</h2>
           <div className="flex flex-row w-50 space-x-4 justify-around">
             <div className="w-1/3">
-              <label
-                for="company_website"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label className="block text-sm font-medium text-gray-700">
                 Pet Name
               </label>
               <Input
@@ -89,8 +88,9 @@ const AddPetForm = () => {
                   className="mt-0 block border rounded-md border-gray-200 "
                   name="pet_sex"
                   onChange={(e) => handleChange(e)}
+                  defaultValue={"default"}
                 >
-                  <option disabled selected value>
+                  <option disabled defaultValue={"default"}>
                     -- Choose a gender --
                   </option>
                   <option value="m">Male</option>
@@ -104,10 +104,11 @@ const AddPetForm = () => {
                 </label>
                 <select
                   className="mt-0 block border rounded-md border-gray-200 "
-                  name="pet_size"
+                  name="size"
                   onChange={(e) => handleChange(e)}
+                  defaultValue={"default"}
                 >
-                  <option disabled selected value>
+                  <option disabled defaultValue={"default"}>
                     -- Choose a size --
                   </option>
                   <option value="small">Small</option>
@@ -146,10 +147,7 @@ const AddPetForm = () => {
               </div>
             </div>
             <div className="w-2/3">
-              <label
-                for="about"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label className="block text-sm font-medium text-gray-700">
                 Pet description
               </label>
               <Textarea

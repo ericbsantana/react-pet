@@ -21,7 +21,7 @@ const Input = (props) => {
       onChange={props.onChange}
       onKeyDown={props.onKeyDown}
       value={props.value}
-      autocomplete="off"
+      autoComplete="off"
     />
   );
 };
