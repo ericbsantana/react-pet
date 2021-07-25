@@ -11,7 +11,7 @@ exports.createPet = async (req, res) => {
     });
   }
 
-  const { pet_ownerid, bio, size, pet_sex, pet_name, tags } = req.body;
+  const { pet_ownerid, bio, size, pet_sex, pet_name, pet_char } = req.body;
 
   const q = await db.query(
     "INSERT INTO pets (pet_ownerid, bio, size, pet_sex, pet_name) VALUES ($1, $2, $3, $4, $5) RETURNING pet_id",
@@ -20,7 +20,7 @@ exports.createPet = async (req, res) => {
 
   const query = await db.query(
     "INSERT INTO pets_characteristics (pet_id_char, tags) VALUES ($1, $2)",
-    [q.rows[0].pet_id, tags]
+    [q.rows[0].pet_id, pet_char]
   );
 
   res.status(201).send({
@@ -32,7 +32,7 @@ exports.createPet = async (req, res) => {
         size,
         bio,
         pet_ownerid,
-        tags,
+        pet_char,
       },
     },
   });
