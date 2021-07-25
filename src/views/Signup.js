@@ -1,10 +1,11 @@
-import Input from "../layout/Form/Input";
-import Textarea from "../layout/Form/Textarea";
-import Button from "../layout/Form/Button";
+import Input from "../components/layout/Form/Input";
+import Textarea from "../components/layout/Form/Textarea";
+import Button from "../components/layout/Form/Button";
+
+import api from "../helpers/axios";
 
 import { useState, useEffect, useContext } from "react";
-import api from "../../helpers/axios";
-import { ToastError, ToastClear } from "../../helpers/notify";
+import { ToastError, ToastClear } from "../helpers/notify";
 
 import { Redirect } from "react-router-dom";
 

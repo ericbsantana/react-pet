@@ -1,10 +1,10 @@
-import { Login, AuthContext } from "../../store";
-import { ToastError, ToastClear } from "../../helpers/notify"; //TODO: VALIDATE FORM
+import { Login, AuthContext } from "../store";
+import { ToastError, ToastClear } from "../helpers/notify"; //TODO: VALIDATE FORM
 
 import { useState, useEffect, useContext } from "react";
 
-import Input from "../layout/Form/Input";
-import Button from "../layout/Form/Button";
+import Input from "../components/layout/Form/Input";
+import Button from "../components/layout/Form/Button";
 
 const LoginView = () => {
   const [data, setData] = useState({});

@@ -12,7 +12,7 @@ const Navbar = (props) => {
   }
 
   return (
-    <div className="grid grid-cols-12 content-center	max-w-7xl mx-auto p-2 bg-yellow-500 text-gray-800 ">
+    <div className="grid grid-cols-12 content-center mx-auto p-2 bg-yellow-500 text-gray-800 ">
       <div className="col-span-2 flex justify-center items-center">
         <Link to="/">
           <FontAwesomeIcon icon={faPaw} className="mr-2" />

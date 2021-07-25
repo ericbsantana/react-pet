@@ -6,8 +6,13 @@ let token = localStorage.getItem("token")
   : "";
 let isLoggedIn = user.length > 0;
 
+let user_id = localStorage.getItem("user_id")
+  ? JSON.parse(localStorage.getItem("user_id"))
+  : "";
+
 export const initialState = {
   user: "" || user,
+  user_id: "" || user_id,
   isLoggedIn: "" || isLoggedIn,
   token: "" || token,
   loading: false,
@@ -26,6 +31,7 @@ export const AuthReducer = (initialState, action) => {
         ...initialState,
         user: action.payload.username,
         token: action.payload.token,
+        user_id: action.payload.user_id,
         loading: false,
         errorMessage: action.error,
         isLoggedIn: true,
@@ -35,6 +41,7 @@ export const AuthReducer = (initialState, action) => {
         ...initialState,
         user: "",
         token: "",
+        user_id: "",
         isLoggedIn: false,
       };
 

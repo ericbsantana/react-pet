@@ -68,7 +68,7 @@ exports.listAllUsers = async (req, res) => {
 
 exports.findUserById = async (req, res) => {
   const userId = parseInt(req.params.id);
-  const response = await db.query("SELECT * FROM users WHERE id = $1", [
+  const response = await db.query("SELECT * FROM users WHERE user_id = $1", [
     userId,
   ]);
   res.status(200).send(response.rows);
