@@ -24,7 +24,7 @@ const AddPetForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setData((prevState) => ({ ...prevState, tags }));
+    setData((prevState) => ({ ...prevState, tags: tags }));
 
     try {
       const response = await api.post("http://localhost:3001/pets", data);

@@ -1,10 +1,16 @@
 const db = require("../../config/index.js");
 
 exports.createPet = async (req, res) => {
-  const { pet_ownerid, bio, size, pet_sex, pet_name } = req.body;
-  const response = await db.query(
-    "INSERT INTO pets (pet_ownerid, bio, size, pet_sex, pet_name) VALUES ($1, $2, $3, $4, $5)",
+  const { pet_ownerid, bio, size, pet_sex, pet_name, tags } = req.body;
+
+  const q = await db.query(
+    "INSERT INTO pets (pet_ownerid, bio, size, pet_sex, pet_name) VALUES ($1, $2, $3, $4, $5) RETURNING pet_id",
     [pet_ownerid, bio, size, pet_sex, pet_name]
+  );
+
+  const query = await db.query(
+    "INSERT INTO pets_characteristics (pet_id_char, tags) VALUES ($1, $2)",
+    [q.rows[0].pet_id, tags]
   );
 
   res.status(201).send({
@@ -16,6 +22,7 @@ exports.createPet = async (req, res) => {
         size,
         bio,
         pet_ownerid,
+        tags,
       },
     },
   });
