@@ -69,7 +69,7 @@ const ProfileCard = (props) => {
               </Button>
             )}
             {!isEditable && (
-              <Button onClick={toggleContactInfo} className="space-x-1">
+              <Button onClick={toggleContactInfo} className="space-x-1 p-3">
                 <FontAwesomeIcon icon={faPhoneAlt} />
                 <span>Contact Info</span>
               </Button>
