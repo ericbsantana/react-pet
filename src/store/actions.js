@@ -29,5 +29,5 @@ export async function Logout(dispatch) {
   dispatch({ type: "LOGOUT" });
   localStorage.removeItem("user");
   localStorage.removeItem("token");
-  localStorage.removeItem("id");
+  localStorage.removeItem("user_id");
 }
