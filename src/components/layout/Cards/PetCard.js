@@ -87,7 +87,7 @@ const PetCards = (props) => {
         </div>
         <footer className="flex items-center justify-between leading-none p-2 md:p-4">
           <Link
-            to={`/users/ + ${props.nickname}`}
+            to={`/users/${props.ownerid}`}
             className="flex items-center no-underline hover:underline text-black"
             href="#"
           >
