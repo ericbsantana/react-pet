@@ -67,14 +67,16 @@ const ProfileNavbar = () => {
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <button
-                        className={`${
-                          active ? "bg-yellow-300" : "text-gray-900"
-                        } group flex	 justify-between items-center w-full px-2 py-2 text-sm`}
-                      >
-                        <FontAwesomeIcon icon={faUser} />
-                        <span className="px-3">Your profile</span>
-                      </button>
+                      <Link to={`/users/${state.user_id}`}>
+                        <button
+                          className={`${
+                            active ? "bg-yellow-300" : "text-gray-900"
+                          } group flex	 justify-between items-center w-full px-2 py-2 text-sm`}
+                        >
+                          <FontAwesomeIcon icon={faUser} />
+                          <span className="px-3">Your profile</span>
+                        </button>
+                      </Link>
                     )}
                   </Menu.Item>
                   <Menu.Item>
