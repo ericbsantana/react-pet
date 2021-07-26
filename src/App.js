@@ -6,11 +6,14 @@ import About from "./views/About";
 import Users from "./views/Users";
 import Pets from "./views/Pets";
 import Search from "./views/Search";
+
 import Login from "./views/LoginView";
 import Signup from "./views/Signup";
-import NotFound from "./views/NotFound";
-import PetDetails from "./views/PetDetails";
 import AddPet from "./views/AddPet";
+import NotFound from "./views/NotFound";
+
+import PetDetails from "./views/PetDetails";
+import UserDetails from "./views/UserDetails";
 
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
@@ -30,34 +33,17 @@ function App() {
           <Navbar />
           <div className="sm:container mx-auto">
             <Switch>
-              <PublicRoute path="/about">
-                <About />
-              </PublicRoute>
-              <PrivateRoute component={AddPet} path="/add" />
-              <PublicRoute path="/pets/:id">
-                <PetDetails />
-              </PublicRoute>
-              <PublicRoute path="/pets">
-                <Pets />
-              </PublicRoute>
-              <PublicRoute path="/search">
-                <Search />
-              </PublicRoute>
-              <PublicRoute path="/users">
-                <Users />
-              </PublicRoute>
-              <PublicRoute path="/login">
-                <Login />
-              </PublicRoute>
-              <PublicRoute path="/signup">
-                <Signup />
-              </PublicRoute>
-              <PublicRoute exact path="/">
-                <Home />
-              </PublicRoute>
-              <PublicRoute>
-                <NotFound />
-              </PublicRoute>
+              <PublicRoute path="/about" component={About} />
+              <PrivateRoute path="/add" component={AddPet} />
+              <PublicRoute path="/pets/:id" component={PetDetails} />
+              <PublicRoute path="/pets" component={Pets} />
+              <PublicRoute path="/search" component={Search} />
+              <PublicRoute path="/users/:id" component={UserDetails} />
+              <PublicRoute path="/users" component={Users} />
+              <PublicRoute path="/login" component={Login} />
+              <PublicRoute path="/signup" component={Signup} />
+              <PublicRoute exact path="/" component={Home} />
+              <PublicRoute component={NotFound} />
             </Switch>
             <Footer />
           </div>

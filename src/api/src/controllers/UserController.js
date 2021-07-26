@@ -71,6 +71,12 @@ exports.findUserById = async (req, res) => {
   const response = await db.query("SELECT * FROM users WHERE user_id = $1", [
     userId,
   ]);
+
+  if (response.rows.length === 0) {
+    res.status(404).send("Error: this user does not exist!");
+    return;
+  }
+
   res.status(200).send(response.rows);
 };
 
