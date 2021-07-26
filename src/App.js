@@ -6,12 +6,14 @@ import About from "./views/About";
 import Users from "./views/Users";
 import Pets from "./views/Pets";
 import Search from "./views/Search";
+
 import Login from "./views/LoginView";
 import Signup from "./views/Signup";
+import AddPet from "./views/AddPet";
 import NotFound from "./views/NotFound";
+
 import PetDetails from "./views/PetDetails";
 import UserDetails from "./views/UserDetails";
-import AddPet from "./views/AddPet";
 
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
