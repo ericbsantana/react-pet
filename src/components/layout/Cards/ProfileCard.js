@@ -6,18 +6,26 @@ import {
   faMars,
   faQuestionCircle,
   faVenus,
+  faPhoneAlt,
+  faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 import Button from "../Form/Button";
+import Modal from "../Form/Modal";
 
 import api from "../../../helpers/axios";
 
 const ProfileCard = (props) => {
   const [userPets, setUserPets] = useState([]);
   const [error, setError] = useState(false);
+  const [showContact, setShowContact] = useState(false);
   const [isEditable, setIsEditable] = useState(props.isUser);
+
+  const toggleContactInfo = () => {
+    setShowContact(!showContact);
+  };
 
   const fetchUserDetails = async () => {
     try {
@@ -60,6 +68,34 @@ const ProfileCard = (props) => {
                 <span>Edit profile</span>
               </Button>
             )}
+            {!isEditable && (
+              <Button onClick={toggleContactInfo} className="space-x-1">
+                <FontAwesomeIcon icon={faPhoneAlt} />
+                <span>Contact Info</span>
+              </Button>
+            )}
+
+            <Modal
+              title="Contact info"
+              isOpen={showContact}
+              setIsOpen={setShowContact}
+              description={
+                <>
+                  <span className="space-x-2">
+                    <span>
+                      <FontAwesomeIcon icon={faEnvelope} />
+                    </span>
+                    <span>{props.email}</span>
+                  </span>
+                  <span className="space-x-1">
+                    <span>
+                      <FontAwesomeIcon icon={faPhoneAlt} />
+                    </span>
+                    <span> {props.phone}</span>
+                  </span>
+                </>
+              }
+            />
           </div>
           <div className="w-full h-2 border-t border-gray-300 my-5"></div>
           <div className="flex items-center justify-center space-y-5 flex-col">
