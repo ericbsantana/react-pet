@@ -1,4 +1,4 @@
-# React Pet
+# React Pet (WIP)
 
 A **React** app built with **React Hooks**, **Tailwind CSS**, **NodeJS**, **Express** and **PostgreSQL**. Done for studying purposes.
 
