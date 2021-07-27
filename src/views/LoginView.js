@@ -61,7 +61,11 @@ const LoginView = () => {
                 {state.errorMessage ? (
                   <p className="text-red-500">{state.errorMessage}</p>
                 ) : null}
-                <Button type="submit" disabled={state.loading}>
+                <Button
+                  type="submit"
+                  className={"p-3"}
+                  disabled={state.loading}
+                >
                   Login
                 </Button>
               </div>

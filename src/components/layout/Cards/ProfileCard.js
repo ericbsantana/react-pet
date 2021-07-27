@@ -63,7 +63,7 @@ const ProfileCard = (props) => {
               <span>{props.city}</span>
             </h3>
             {isEditable && (
-              <Button className="space-x-1">
+              <Button className="space-x-1 p-3">
                 <FontAwesomeIcon icon={faEdit} />
                 <span>Edit profile</span>
               </Button>

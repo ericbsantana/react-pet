@@ -174,7 +174,9 @@ const Signup = () => {
                   isValid={fieldErrors.includes("website")}
                 />
               </label>
-              <Button type="submit">Create Account</Button>
+              <Button className="p-3" type="submit">
+                Create Account
+              </Button>
             </div>
           </form>
         </div>
